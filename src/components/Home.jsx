@@ -7,6 +7,7 @@ const Home = () => {
   const [dispayOutput, setDisplayOutput] = useState("");
   const [langType, setLangType] = useState("");
   const [translated, setTranslated] = useState("");
+  const [selectLang, setSelectLang] = useState("");
 
   async function langDetectorTriger(display) {
     const languageDetectorCapabilities =
@@ -44,29 +45,12 @@ const Home = () => {
 
   langDetectorTriger(dispayOutput);
 
-  // async function translate() {
-  //   try {
-  //     if (!("ai" in self) || !("translator" in self.ai)) {
-  //       console.error("Translator API is not supported in this browser.");
-  //       return;
-  //     }
-
-  //     if ("ai" in self && "translator" in self.ai) {
-  //       // The Translator API is supported.
-  //       const translator = await self.ai.translator.create({
-  //         sourceLanguage: "en",
-  //         targetLanguage: "pl",
-  //       });
-  //     }
-
-  //     let translation = await translator.translate("bonjour");
-  //     console.log(translation);
-  //   } catch (error) {
-  //     console.error("Translation failed:", error);
-  //   }
+  // function numberOfLetters(output) {
+  //   let numLetters = `hello nad: ${output.split("").filter(char => char !== " ").length}`
+  //   console.log(numLetters)
   // }
 
-  // translate();
+  // numberOfLetters(dispayOutput)
 
   async function tranlation() {
     if ("ai" in self && "translator" in self.ai) {
@@ -84,12 +68,10 @@ const Home = () => {
           // Create a translator that translates from English to French.
           translator = await self.ai.translator.create({
             sourceLanguage: "en",
-            targetLanguage: "fr",
+            targetLanguage: `${selectLang}`,
           });
 
-          let check = await translator.translate(
-            "Where is the next bus stop, please?"
-          );
+          let check = await translator.translate(dispayOutput);
           console.log(check);
           setTranslated(check);
         } else if (availTranslateLanguage == "no") {
@@ -133,6 +115,11 @@ const Home = () => {
     e.preventDefault();
 
     let output = text;
+
+    if (output == "" || null) {
+      return;
+    }
+
     setDisplayOutput(output);
     setText("");
 
@@ -150,12 +137,12 @@ const Home = () => {
             </div>
 
             {langType == "und" ? (
-              <p className="lang-detector">Language : ""</p>
+              <p className="lang-detector">Language : </p>
             ) : (
               <p className="lang-detector">Language : "{langType}"</p>
             )}
           </section>
-          <div className="summary-box">lorem400 lore</div>
+          <div className="summary-box">{translated}</div>
 
           <section className="second-section">
             <form
@@ -169,6 +156,7 @@ const Home = () => {
                   name=""
                   id=""
                   placeholder="Type here..."
+                  required
                   value={text}
                   onChange={(e) => {
                     setText(e.target.value);
@@ -180,9 +168,24 @@ const Home = () => {
               </div>
             </form>
             <section>
-              <button>Summarize</button>
               <div>
-                <button>Language option</button>
+                <label>
+                  Select lanhuage :
+                  <select
+                    name="selectlanguage"
+                    id=""
+                    value={selectLang}
+                    onChange={(e) => setSelectLang(e.target.value)}
+                  >
+                    <option value="en">English</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="es">Spanish </option>
+                    <option value="ru">Russian</option>
+                    <option value="tr">Turkish</option>
+                    <option value="fr ">French </option>
+                  </select>
+                </label>
+
                 <button onClick={tranlation}>Tranlate</button>
               </div>
             </section>
