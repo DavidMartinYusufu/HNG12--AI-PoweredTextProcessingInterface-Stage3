@@ -42,6 +42,7 @@ const Home = () => {
     setLangType(firstObj.detectedLanguage);
   }
 
+  langDetectorTriger(dispayOutput);
 
   // async function summaryApi() {
   //   const options = {
@@ -135,9 +136,7 @@ const Home = () => {
           let check = await translator.translate(
             "Where is the next bus stop, please?"
           );
-          console.log('check');
-          
-          
+          console.log("check");
         } else if (availTranslateLanguage == "no") {
           console.log("lang not avialable");
         } else if (availTranslateLanguage == "after-download") {
@@ -152,7 +151,7 @@ const Home = () => {
           });
         }
         console.log(translator);
-        return await translator.translate('here is the ball')
+        return await translator.translate("here is the ball");
       } catch (error) {
         console.log(error);
         // throw error;
@@ -178,7 +177,6 @@ const Home = () => {
   function sendToOutput(e) {
     e.preventDefault();
 
-  langDetectorTriger(dispayOutput);
     let output = text;
     setDisplayOutput(output);
     setText("");
