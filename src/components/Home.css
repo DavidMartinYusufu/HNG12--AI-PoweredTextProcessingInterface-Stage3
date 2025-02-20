@@ -1,0 +1,138 @@
+h1 {
+  text-align: center;
+}
+.output-section {
+  /* border: 1px solid green; */
+  display: flex;
+  /* align-self: end; */
+  justify-content: end;
+  min-height: 200px;
+}
+
+.output-box {
+  max-width: 250px;
+  border: 1px solid rgb(161, 154, 154);
+  width: 100%;
+  padding: 12px;
+  margin-right: 10px;
+  margin-left: 10px;
+  /* margin-bottom: 20px; */
+  border-radius: 12px;
+
+  word-wrap: break-word; /* Forces long words to wrap */
+  white-space: pre-wrap; /* Keeps spacing & line breaks */
+  overflow-wrap: break-word; /* Another method for wrapping */
+}
+
+@media (min-width: 40em) {
+  .output-box {
+    margin-right: 50px;
+  }
+}
+
+.lang-detector {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 40em) {
+  .lang-detector {
+    margin-right: 30px;
+  }
+}
+
+.summary-box {
+  /* width: 80%; */
+  margin: auto;
+
+  /* border: 1px solid red; */
+  /* margin-left: 20px; */
+  margin-bottom: 30px;
+  /* padding: px; */
+  /* overflow: visible; */
+  /* z-index: -1; */
+  /* display: flex; */
+  max-width: 90%;
+  /* text-align: center; */
+  /* display: ; */
+}
+
+@media (min-width: 40em) {
+  .summary-box {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+}
+
+.second-section {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  position: sticky;
+  /* z-index: 9999;  */
+}
+
+@media (min-width: 40em) {
+  .second-section {
+    flex-direction: column;
+  }
+}
+
+.form-input-section {
+  width: 90%;
+  /* border: 1px solid yellow; */
+}
+
+@media (min-width: 40em) {
+  .form-input-section {
+    width: 50%;
+  }
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  /* align-items: end; */
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid green;
+  min-height: 50px;
+  /* width: 50%; */
+  border-radius: 20px;
+  padding: 12px;
+}
+
+.input-section textarea {
+  /* height: 60%; */
+  padding: 5px;
+  border: none;
+  border-radius: 16px;
+  outline: none;
+  min-height: 50px;
+  font-size: 15px;
+  resize: none;
+}
+
+.send-btn {
+  max-width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid gray;
+  padding: 8px 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.send-btn img {
+  width: 15px;
+  height: 15px;
+}
