@@ -67,8 +67,8 @@ const Home = () => {
         if (availTranslateLanguage == "readily") {
           // Create a translator that translates from English to French.
           translator = await self.ai.translator.create({
-            sourceLanguage: "en",
-            targetLanguage: `${selectLang}`,
+            sourceLanguage: `${langType}`,
+            targetLanguage: `${selectLang}`,  
           });
 
           let check = await translator.translate(dispayOutput);

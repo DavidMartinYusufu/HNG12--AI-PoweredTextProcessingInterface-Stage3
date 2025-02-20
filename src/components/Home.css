@@ -1,17 +1,21 @@
 h1 {
   text-align: center;
+  color: #b4b4b4;
 }
+
 .output-section {
   /* border: 1px solid green; */
   display: flex;
   /* align-self: end; */
   justify-content: end;
-  min-height: 200px;
+  /* min-height: 200px; */
+  color: #fafafa;
 }
 
 .output-box {
   max-width: 250px;
-  border: 1px solid rgb(161, 154, 154);
+  /* border: 1px solid rgb(161, 154, 154); */
+  background-color: #303030;
   /* box-shadow: rgb(2, 225, blue); */
   width: 100%;
   padding: 12px;
@@ -36,7 +40,8 @@ h1 {
   align-self: flex-end;
   flex-direction: row-reverse;
   padding-right: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 200px;
+  color: #fafafa;
 }
 
 @media (min-width: 40em) {
@@ -101,11 +106,11 @@ h1 {
   /* align-items: end; */
   justify-content: space-between;
   gap: 8px;
-  border: 1px solid green;
   min-height: 50px;
   /* width: 50%; */
   border-radius: 20px;
   padding: 12px;
+  background-color: #303030;
 }
 
 .input-section textarea {
@@ -117,6 +122,8 @@ h1 {
   min-height: 50px;
   font-size: 15px;
   resize: none;
+  background-color: #303030;
+  color: #fafafa;
 }
 
 .send-btn {
@@ -127,13 +134,18 @@ h1 {
   align-self: flex-end;
   gap: 10px;
   border-radius: 20px;
-  border: 1px solid gray;
+  border: none;
   padding: 8px 12px;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .send-btn img {
   width: 15px;
   height: 15px;
+}
+
+
+label {
+  color: #fafafa;
 }
