@@ -8,7 +8,7 @@ h1 {
   display: flex;
   /* align-self: end; */
   justify-content: end;
-  /* min-height: 200px; */
+  min-height: 80px;
   color: #fafafa;
 }
 
@@ -81,6 +81,7 @@ h1 {
   /* border: 1px solid red; */
   position: sticky;
   /* z-index: 9999;  */
+  margin-bottom: 40px;
 }
 
 @media (min-width: 40em) {
@@ -145,7 +146,52 @@ h1 {
   height: 15px;
 }
 
+.language-section {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 40em) {
+  .language-section {
+    margin-top: 20px;
+  }
+}
+
+.language-ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
 
 label {
   color: #fafafa;
+  font-size: 14px;
+}
+
+.translate-btn {
+  background: none;
+  color: #fafafa;
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;  
+}
+
+.translate-btn:hover {
+  background: #fafafa;
+  color: rgb(102, 100, 100);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.select{
+  background: #fafafa;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid #fafafa;
+  cursor: pointer;
+}
+
+.select:focus {
+  border: 1px solid rgb(117, 117, 241);
 }

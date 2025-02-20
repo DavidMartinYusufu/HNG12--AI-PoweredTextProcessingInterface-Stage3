@@ -59,7 +59,7 @@ const Home = () => {
       try {
         const translatorCapabilities = await self.ai.translator.capabilities();
         let availTranslateLanguage =
-          translatorCapabilities.languagePairAvailable("en", "fr");
+          translatorCapabilities.languagePairAvailable(`${langType}`,`${selectLang}`);
         console.log(availTranslateLanguage);
 
         let translator;
@@ -68,7 +68,7 @@ const Home = () => {
           // Create a translator that translates from English to French.
           translator = await self.ai.translator.create({
             sourceLanguage: `${langType}`,
-            targetLanguage: `${selectLang}`,  
+            targetLanguage: `${selectLang}`,
           });
 
           let check = await translator.translate(dispayOutput);
@@ -78,8 +78,8 @@ const Home = () => {
           console.log("lang not avialable");
         } else if (availTranslateLanguage == "after-download") {
           translator = await self.ai.translator.create({
-            sourceLanguage: "en",
-            targetLanguage: "fr",
+            sourceLanguage: `${langType}`,
+            targetLanguage: `${selectLang}`,
             monitor(m) {
               m.addEventListener("downloadprogress", (e) => {
                 console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
@@ -142,8 +142,8 @@ const Home = () => {
               <p className="lang-detector">Language : "{langType}"</p>
             )}
           </section>
-          <div className="summary-box">{translated}</div>
 
+          <div className="summary-box">{translated}</div>
           <section className="second-section">
             <form
               action=""
@@ -167,14 +167,15 @@ const Home = () => {
                 </button>
               </div>
             </form>
-            <section>
-              <div>
+            <section className="language-section">
+              <div className="language-ctn">
                 <label>
-                  Select lanhuage :
+                  Select lanhuage :{" "}
                   <select
                     name="selectlanguage"
                     id=""
                     value={selectLang}
+                    className="select"
                     onChange={(e) => setSelectLang(e.target.value)}
                   >
                     <option value="en">English</option>
@@ -186,7 +187,9 @@ const Home = () => {
                   </select>
                 </label>
 
-                <button onClick={tranlation}>Tranlate</button>
+                <button className="translate-btn" onClick={tranlation}>
+                  Tranlate
+                </button>
               </div>
             </section>
           </section>
