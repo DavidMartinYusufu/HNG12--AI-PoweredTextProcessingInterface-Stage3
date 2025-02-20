@@ -44,52 +44,6 @@ const Home = () => {
 
   langDetectorTriger(dispayOutput);
 
-  // async function summaryApi() {
-  //   const options = {
-  //     sharedContext: "This is a scientific article",
-  //     type: "key-points",
-  //     format: "markdown",
-  //     length: "medium",
-  //   };
-
-  // const available = (await self.ai.summarizer.capabilities()).available;
-  // let summarizer;
-  // if (available === "no") {
-  //   // The Summarizer API isn't usable.
-  //   return;
-  // }
-  // if (available === "readily") {
-  //   // The Summarizer API can be used immediately .
-  //   summarizer = await self.ai.summarizer.create(options);
-  //   console.log(summarizer);
-  // } else {
-  //   // The Summarizer API can be used after the model is downloaded.
-  //   summarizer = await self.ai.summarizer.create(options);
-  //   summarizer.addEventListener("downloadprogress", (e) => {
-  //     console.log(e.loaded, e.total);
-  //   });
-  //   await summarizer.ready;
-  //   console.log(summarizer);
-  // }
-
-  // }
-
-  // summaryApi();
-
-  // async function summ() {
-  //   const summarizer = await ai.summarizer.create({
-  //     monitor(m) {
-  //       m.addEventListener('downloadprogress', (e) => {
-  //         console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
-  //       });
-  //     }
-  //   });
-
-  //   console.log(summarizer)
-  // }
-
-  // summ()
-
   // async function translate() {
   //   try {
   //     if (!("ai" in self) || !("translator" in self.ai)) {
@@ -136,7 +90,8 @@ const Home = () => {
           let check = await translator.translate(
             "Where is the next bus stop, please?"
           );
-          console.log("check");
+          console.log(check);
+          setTranslated(check);
         } else if (availTranslateLanguage == "no") {
           console.log("lang not avialable");
         } else if (availTranslateLanguage == "after-download") {
@@ -181,8 +136,7 @@ const Home = () => {
     setDisplayOutput(output);
     setText("");
 
-    let sum = ai.summarizer.capabilities();
-    console.log(sum);
+    langDetectorTriger(dispayOutput);
   }
 
   return (
@@ -192,10 +146,14 @@ const Home = () => {
         <section>
           <section>
             <div className="output-section">
-              <div className="output-box">out{dispayOutput}</div>
+              <div className="output-box">{dispayOutput}</div>
             </div>
 
-            <p className="lang-detector">Language : "{langType}"</p>
+            {langType == "und" ? (
+              <p className="lang-detector">Language : ""</p>
+            ) : (
+              <p className="lang-detector">Language : "{langType}"</p>
+            )}
           </section>
           <div className="summary-box">lorem400 lore</div>
 
