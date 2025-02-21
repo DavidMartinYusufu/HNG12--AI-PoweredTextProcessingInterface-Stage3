@@ -16,7 +16,7 @@ const Home = () => {
     let detector;
     if (canDetect === "no") {
       // The language detector isn't usable.
-      return;
+      return; 
     }
     if (canDetect === "readily") {
       // The language detector can immediately be used.
@@ -35,7 +35,6 @@ const Home = () => {
     }
 
     console.log(display);
-    // const someUserText = "Hallo und herzlich willkommen!";
     const results = await detector.detect(display);
     const firstObj = results[0];
 
@@ -64,6 +63,7 @@ const Home = () => {
             `${selectLang}`
           );
         console.log(availTranslateLanguage);
+        console.log(langType,selectLang)
 
         let translator;
 
@@ -78,11 +78,11 @@ const Home = () => {
           console.log(check);
           setTranslated(check);
         } else if (availTranslateLanguage == "no") {
-          console.log("lang not avialable");
+          alert("Language translation not avialable, choose another language");
         } else if (availTranslateLanguage == "after-download") {
           translator = await self.ai.translator.create({
-            sourceLanguage: `${langType}`,
-            targetLanguage: `${selectLang}`,
+            sourceLanguage: `en`,
+            targetLanguage: `es`,
             monitor(m) {
               m.addEventListener("downloadprogress", (e) => {
                 console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
@@ -94,14 +94,12 @@ const Home = () => {
         return await translator.translate("here is the ball");
       } catch (error) {
         console.log(error);
-        // throw error;
       }
     } else {
       console.log("not sopported");
+      alert("AI not sopported in this browser");
     }
   }
-
-  // tranlation()
 
   async function checkLanguageSupport() {
     try {
@@ -112,7 +110,6 @@ const Home = () => {
       console.error("Error checking language support:", error);
     }
   }
-  // checkLanguageSupport();
 
   function sendToOutput(e) {
     e.preventDefault();
@@ -154,7 +151,6 @@ const Home = () => {
               onSubmit={sendToOutput}
             >
               <div className="input-section">
-                {/* <input type="text" /> */}
                 <textarea
                   name=""
                   id=""
@@ -181,6 +177,7 @@ const Home = () => {
                     className="select"
                     onChange={(e) => setSelectLang(e.target.value)}
                   >
+                    <option value="">select</option>
                     <option value="en">English</option>
                     <option value="pt">Portuguese</option>
                     <option value="es">Spanish </option>
