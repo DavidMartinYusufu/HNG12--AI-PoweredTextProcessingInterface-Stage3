@@ -64,6 +64,7 @@ h1 {
   max-width: 90%;
   /* text-align: center; */
   /* display: ; */
+  color: #fafafa;
 }
 
 @media (min-width: 40em) {
