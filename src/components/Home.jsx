@@ -59,7 +59,10 @@ const Home = () => {
       try {
         const translatorCapabilities = await self.ai.translator.capabilities();
         let availTranslateLanguage =
-          translatorCapabilities.languagePairAvailable(`${langType}`,`${selectLang}`);
+          translatorCapabilities.languagePairAvailable(
+            `${langType}`,
+            `${selectLang}`
+          );
         console.log(availTranslateLanguage);
 
         let translator;
@@ -170,7 +173,7 @@ const Home = () => {
             <section className="language-section">
               <div className="language-ctn">
                 <label>
-                  Select lanhuage :{" "}
+                  Select language :{" "}
                   <select
                     name="selectlanguage"
                     id=""
@@ -188,7 +191,7 @@ const Home = () => {
                 </label>
 
                 <button className="translate-btn" onClick={tranlation}>
-                  Tranlate
+                  Translate
                 </button>
               </div>
             </section>
