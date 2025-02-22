@@ -8,48 +8,105 @@ const Home = () => {
   const [langType, setLangType] = useState("");
   const [translated, setTranslated] = useState("");
   const [selectLang, setSelectLang] = useState("");
+  const [summ, setSumm] = useState("");
+  const [outputNum, setOutputNum] = useState();
 
   async function langDetectorTriger(display) {
-    const languageDetectorCapabilities =
-      await self.ai.languageDetector.capabilities();
-    const canDetect = languageDetectorCapabilities.capabilities;
-    let detector;
-    if (canDetect === "no") {
-      // The language detector isn't usable.
-      return; 
-    }
-    if (canDetect === "readily") {
-      // The language detector can immediately be used.
-      detector = await self.ai.languageDetector.create();
-      console.log(detector);
-    } else {
-      // The language detector can be used after model download.
-      detector = await self.ai.languageDetector.create({
-        monitor(m) {
-          m.addEventListener("downloadprogress", (e) => {
-            console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
-          });
-        },
-      });
-      await detector.ready;
-    }
+    try {
+      const languageDetectorCapabilities =
+        await self.ai.languageDetector.capabilities();
+      const canDetect = languageDetectorCapabilities.capabilities;
+      let detector;
+      if (canDetect === "no") {
+        // The language detector isn't usable.
+        return;
+      }
+      if (canDetect === "readily") {
+        // The language detector can immediately be used.
+        detector = await self.ai.languageDetector.create();
+        console.log(detector);
+      } else {
+        // The language detector can be used after model download.
+        detector = await self.ai.languageDetector.create({
+          monitor(m) {
+            m.addEventListener("downloadprogress", (e) => {
+              console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
+            });
+          },
+        });
+        await detector.ready;
+      }
 
-    console.log(display);
-    const results = await detector.detect(display);
-    const firstObj = results[0];
+      console.log(display);
+      const results = await detector.detect(display);
+      const firstObj = results[0];
 
-    console.log(firstObj.detectedLanguage);
-    setLangType(firstObj.detectedLanguage);
+      console.log(firstObj.detectedLanguage);
+      setLangType(firstObj.detectedLanguage);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   langDetectorTriger(dispayOutput);
 
-  // function numberOfLetters(output) {
-  //   let numLetters = `hello nad: ${output.split("").filter(char => char !== " ").length}`
-  //   console.log(numLetters)
-  // }
+  function numberOfLetters(output) {
+    let numLetters = `hello nad: ${
+      output.split("").filter((char) => char !== " ").length
+    }`;
+    setOutputNum(numLetters);
+    console.log(outputNum);
+  }
 
   // numberOfLetters(dispayOutput)
+
+  async function summary() {
+    if ("ai" in self && "summarizer" in self.ai) {
+      // The Summarizer API is supported.
+      try {
+        const options = {
+          sharedContext: "This is a scientific article",
+          type: "key-points",
+          format: "markdown",
+          length: "medium",
+        };
+
+        const available = (await self.ai.summarizer.capabilities()).available;
+        let summarizer;
+        if (available === "no") {
+          // The Summarizer API isn't usable.
+          alert("summarizer not available");
+
+          const summarizer = await ai.summarizer.create({
+            monitor(m) {
+              m.addEventListener("downloadprogress", (e) => {
+                console.log(`Downloaded ${e.loaded} of ${e.total} bytes.`);
+              });
+            },
+          });
+          return;
+        }
+        if (available === "readily") {
+          // The Summarizer API can be used immediately .
+          summarizer = await self.ai.summarizer.create(options);
+          const summary = await summarizer.summarize(dispayOutput, {
+            context: "This content is intended to be a short summary.",
+          });
+
+          setSumm(summary);
+        } else {
+          // The Summarizer API can be used after the model is downloaded.
+          summarizer = await self.ai.summarizer.create(options);
+          summarizer.addEventListener("downloadprogress", (e) => {
+            console.log(e.loaded, e.total);
+          });
+          await summarizer.ready;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   async function tranlation() {
     if ("ai" in self && "translator" in self.ai) {
@@ -63,7 +120,7 @@ const Home = () => {
             `${selectLang}`
           );
         console.log(availTranslateLanguage);
-        console.log(langType,selectLang)
+        console.log(langType, selectLang);
 
         let translator;
 
@@ -139,11 +196,14 @@ const Home = () => {
             {langType == "und" ? (
               <p className="lang-detector">Language : </p>
             ) : (
-              <p className="lang-detector">Language : "{langType}"</p>
+              <p className="lang-detector">Language : {langType}</p>
             )}
           </section>
 
           <div className="summary-box">{translated}</div>
+
+          <div className="summary-box">{summ}</div>
+
           <section className="second-section">
             <form
               action=""
@@ -190,6 +250,10 @@ const Home = () => {
                 <button className="translate-btn" onClick={tranlation}>
                   Translate
                 </button>
+
+                {/* <button className="translate-btn" onClick={summary}>
+                  summary
+                </button> */}
               </div>
             </section>
           </section>
