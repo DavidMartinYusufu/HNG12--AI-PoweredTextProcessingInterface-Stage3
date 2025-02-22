@@ -237,7 +237,7 @@ const Home = () => {
                     className="select"
                     onChange={(e) => setSelectLang(e.target.value)}
                   >
-                    <option value="">select</option>
+                    <option value="the select btn">select</option>
                     <option value="en">English</option>
                     <option value="pt">Portuguese</option>
                     <option value="es">Spanish </option>
